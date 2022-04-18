@@ -1,12 +1,10 @@
-function Erro() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>Erro na Consulta</p>
-        <p>Servidores indisponíveis</p>
-      </header>
-    </div>
-  )
+function Erro(props) {
+  const goTo = props.goTo;
+  return <>
+    <p>Erro na Consulta</p>
+    <p>{props.errorMessage}</p>
+    <button onClick={() => goTo="PESQUISA"}>VOLTAR</button>
+  </>
 }
 
-export default Erro;
+export default Erro

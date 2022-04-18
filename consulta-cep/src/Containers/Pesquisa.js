@@ -4,8 +4,7 @@ function Pesquisa(props) {
     <p>Qual CEP você deseja pesquisar?</p>
     <input />
     <button onClick={() =>goTo("RESULTADO") }>CONSULTAR</button>
-  </>
-  
+  </>  
 }
 
 export default Pesquisa

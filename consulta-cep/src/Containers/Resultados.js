@@ -3,10 +3,10 @@ function Resultados(props) {
   const goTo = props.goTo;
   const keys = Object.keys(result);
   const elements = keys.map(key => (
-    <span key={key}><b>{keys}: </b>{result[key]}</span>
+    <span key={key}><b>{key}: </b>{result[key]}</span>
   ))
   return <>      
-    <p>Resultados para o CEP 16075-420</p>
+    <p>Resultados para o CEP {result.cep}</p>
     {elements}
     <button onClick={() => goTo("PESQUISA")}>NOVA CONSULTA</button>
   </>  

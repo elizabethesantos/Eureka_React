@@ -3,7 +3,7 @@ function Erro(props) {
   return <>
     <p>Erro na Consulta</p>
     <p>{props.errorMessage}</p>
-    <button onClick={() => goTo="PESQUISA"}>VOLTAR</button>
+    <button onClick={() =>goTo("PESQUISA")}>VOLTAR</button>
   </>
 }
 

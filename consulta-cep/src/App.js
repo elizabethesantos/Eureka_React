@@ -5,27 +5,25 @@ import  Carregando  from './Containers/Carregando'
 import  Erro  from './Containers/Erro'
 import  Resultados  from './Containers/Resultados'
 
-import {useState} from 'react';
+import {useState, useRef} from 'react';
 
 function App() {
-  console.log('App sendo executado')
-
   const [nomeTela, setNomeTela] = useState("PESQUISA");
   const [resultado, setResultado] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+  const ticket = useRef(1);
 
   function goTo(nomeTela) {
-    console.log(`Navegando para a tela ${nomeTela}`);
     setNomeTela(nomeTela);
   }
 
   return <div>
     <div className="App">
       <header className="App-header">
-       {nomeTela === "PESQUISA" ? <Pesquisa goTo={goTo} setResultado={setResultado} /> : null}
+       {nomeTela === "PESQUISA" ? <Pesquisa goTo={goTo} setResultado={setResultado} setErrorMessage={setErrorMessage} ticket={ticket} /> : null}
        {nomeTela === "RESULTADOS" ? <Resultados goTo={goTo} result={resultado}/> : null}
        {nomeTela === "ERRO" ? <Erro goTo={goTo} errorMessage={errorMessage}/> : null}
-       {nomeTela === "CARREGANDO" ? <Carregando goTo={goTo}/> : null}
+       {nomeTela === "CARREGANDO" ? <Carregando goTo={goTo} ticket={ticket}/> : null}
       </header>
     </div>
   </div>

@@ -1,8 +1,19 @@
 import {useState, useEffect} from 'react'
 import consultarCep from 'cep-promise'
+import CEPDados from '../Components/CEPDados';
 
 function numbersOnly(str){
   return str.replace(/[^\d]/g, '')
+}
+
+
+function translate(cepDados){
+  return {
+    "ESTADO": cepDados.state,
+    "CIDADE": cepDados.city,
+    "BAIRRO": cepDados.neighborhood,
+    "LOGRADOURO": cepDados.street 
+  }
 }
 
 function Pesquisa(props) {
@@ -12,7 +23,7 @@ function Pesquisa(props) {
   const setErrorMessage = props.setErrorMessage;
   const ticket = props.ticket;
   const [cepFavorito, setCepFavorito] = useState("");
-  const [dadosCep, setDadosCep] = useState({});
+  const [cepDados, setCepDados] = useState({});
 
   useEffect(()=> {
     const storedCep = localStorage.getItem("cepFavorito") || "";
@@ -21,7 +32,13 @@ function Pesquisa(props) {
 
 
   useEffect(()=>{
+    if(!cepFavorito){
+      return;
+    }
     localStorage.getItem("cepFavorito" , cepFavorito);
+    consultarCep(cepFavorito)
+      .then(resultado => setCepDados(resultado))
+      .catch(error => setCepDados({"ERRO": error.message}))
   },[cepFavorito]);
   
   function handleChange(evt) {
@@ -31,13 +48,8 @@ function Pesquisa(props) {
   function clear() {
     setCepNumber('');
   }
-  function handleSuccess(dadosCEP){
-    const resultados ={
-      "ESTADO": dadosCEP.state,
-      "CIDADE": dadosCEP.city,
-      "BAIRRO": dadosCEP.neighborhood,
-      "LOGRADOURO": dadosCEP.street
-    }
+  function handleSuccess(cepDados){
+    const resultados = translate(cepDados);
     setResultado(resultados);
     goTo("RESULTADOS");
   }
@@ -59,12 +71,13 @@ function Pesquisa(props) {
   }
   return <>
     <p>Qual CEP você deseja pesquisar?</p>
-    <p>Favorito : {cepFavorito}</p>
     <input value={numbersOnly(cepNumber)} onChange={handleChange} />
     <button onClick={handleSearch}>CONSULTAR</button>
     <button onClick={handleAdicionarFavorito}>SALVAR FAVORITO</button>
-
-  </>  
+    <br />
+    <p>Favorito : {cepFavorito}</p>
+    <CEPDados cepDados={translate(cepDados)}/>
+  </>   
 }
 
 export default Pesquisa

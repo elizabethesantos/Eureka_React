@@ -1,4 +1,4 @@
 # Eureka_React
  curso introdução ao React
 
- <img src="../src/Captura de Tela (9).png" alt="foto projeto" width="100" height="100"></img>
+ <img src="../src/Captura de Tela (9).png" alt="foto projeto" width="100" height="100" />

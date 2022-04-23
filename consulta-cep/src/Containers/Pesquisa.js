@@ -45,9 +45,6 @@ function Pesquisa(props) {
     const value = evt.target.value
     setCepNumber(numbersOnly(value))
   }
-  function clear() {
-    setCepNumber('');
-  }
   function handleSuccess(cepDados){
     const resultados = translate(cepDados);
     setResultado(resultados);
